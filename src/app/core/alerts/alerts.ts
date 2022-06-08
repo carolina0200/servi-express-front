@@ -16,6 +16,16 @@ export class Alerts {
           });
 	}
 
+    static errorTime(title: string): Promise<SweetAlertResult> {
+		return Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title,
+            showConfirmButton: false,
+            timer: 1500
+          });
+	}
+
 	static warning(titulo: string, texto?: string, textoConfirmacion?: string): Promise<SweetAlertResult> {
 		return this.generate('warning', titulo, texto, textoConfirmacion);
 	}
@@ -42,7 +52,7 @@ export class Alerts {
             cancelButtonColor: '#d33',
             confirmButtonText: textoConfirmacion,
 			cancelButtonText: textoCancelacion
-    });
+        });
 	}
 
 	private static generate(icon:SweetAlertIcon ,titulo: string, texto?: string, textoConfirmacion?: string): Promise<SweetAlertResult> {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { Alerts } from 'src/app/core/alerts/alerts';
 import { User } from 'src/app/shared/model/user';
 import { SignupService } from '../../services/signup.service';
 
@@ -12,24 +13,25 @@ import { SignupService } from '../../services/signup.service';
 export class SignupComponent {
 
   signupForm: FormGroup;
-
+  role;
   constructor(private service: SignupService, private formBuilder: FormBuilder) {
     this.signupForm = this.formBuilder.group({
-      user: [undefined, [Validators.required]],
-      name: [undefined, [Validators.required]],
-      lastname: [undefined, [Validators.required]],
-      password: [undefined, [Validators.required]]
+      userName: [undefined, [Validators.required]],
+      firstName: [undefined, [Validators.required]],
+      lastName: [undefined, [Validators.required]],
+      password: [undefined, [Validators.required]],
+      idRole: [1, [Validators.required]]
     });
+
+    this.role = localStorage.getItem('role');
   }
 
   async signUp() {
-    console.log(this.signupForm.value)
     if(this.signupForm.valid) {
-      const user: User = new User(this.signupForm.value.user,
-        this.signupForm.value.name, 
-        this.signupForm.value.lastname, 
-        this.signupForm.value.password, 1);
+      const user: User = {...this.signupForm.value};
       await firstValueFrom(this.service.signUp(user));
+    } else {
+      Alerts.warning('Faltan datos', 'Por favor llena toda la información requerida', 'Ok')
     }
   }
 

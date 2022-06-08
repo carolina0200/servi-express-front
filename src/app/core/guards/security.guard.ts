@@ -16,6 +16,9 @@ export class SecurityGuard implements CanActivate {
 				if(this.validRol(expectedRol, token)) {
 					localStorage.setItem('user', this.getTokenInfo(token).sub);
 					return true;
+				} else {
+					this.router.navigate(['/home']);
+					return false;
 				}
 			}
 		}
