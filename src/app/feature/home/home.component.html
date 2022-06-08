@@ -1,8 +1,10 @@
 <div class="container mt-5">
     <h1><i class="bi bi-boxes"></i> Servi Express</h1>
     <hr>
+    <h5><i class="bi bi-person-circle"></i> {{user}}</h5>
+    <hr>
     <div class="row">
-        <div class="d-grid gap-2 col-6 mb-2" *ngIf="role == 'ROLE_USER'">
+        <div class="d-grid gap-2 mb-2" *ngIf="role == 'ROLE_USER'">
             <button type="button" routerLink="/agenda/crear" class="btn btn-outline-primary btn-lg"><i class="bi bi-calendar-plus"></i><br> Agendar</button>
         </div>
         <div class="d-grid gap-2 col-6 mb-2" *ngIf="role == 'ROLE_ADMIN'">

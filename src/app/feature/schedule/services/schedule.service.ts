@@ -11,8 +11,8 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) { }
 
-  public create(schedule: Schedule): Observable<any> {
-    return this.http.post<any>(this.baseUrl, schedule);
+  public create(schedule: Schedule): Observable<Schedule> {
+    return this.http.post<Schedule>(this.baseUrl, schedule);
   }
 
   public getById(id: number): Observable<Schedule> {

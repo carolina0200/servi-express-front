@@ -14,6 +14,7 @@ export class SecurityGuard implements CanActivate {
 		if (token) {
 			if(this.validTokenExp(token)) {
 				if(this.validRol(expectedRol, token)) {
+					localStorage.setItem('user', this.getTokenInfo(token).sub);
 					return true;
 				}
 			}
