@@ -20,7 +20,6 @@ export class LoginComponent {
   }
 
   async login() {
-    console.log(this.loginForm.value)
     if(this.loginForm.valid) {
       await firstValueFrom(this.service.login(this.loginForm.value.user, this.loginForm.value.password));
     }

@@ -2,6 +2,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { Alerts } from 'src/app/core/alerts/alerts';
 import { Schedule } from 'src/app/shared/model/schedule';
 import { ScheduleService } from '../../services/schedule.service';
 
@@ -69,7 +70,6 @@ export class CreateScheduleComponent implements OnInit {
   }
 
   async create() {
-    console.log(this.scheduleForm.value);
     if(this.scheduleForm.valid) {
       const schedule = new Schedule(
         this.scheduleForm.value.type,
@@ -78,7 +78,10 @@ export class CreateScheduleComponent implements OnInit {
         localStorage.getItem('user') || '', 1
       )
       console.log(schedule);
+      
       const response = await firstValueFrom(this.scheduleService.create(schedule));
+    } else {
+      Alerts.warning('Faltan datos', 'Por favor llena toda la información requerida', 'Ok')
     }
   }
 
