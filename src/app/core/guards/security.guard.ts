@@ -11,30 +11,30 @@ export class SecurityGuard implements CanActivate {
 		const expectedRol = route.data['expectedRol'];
 		let token = localStorage.getItem("token");
 
-		if(!token) {
-			this.router.navigate(['/login']);
-			return false;
-		} else {
+		if (token) {
 			if(this.validTokenExp(token)) {
 				if(this.validRol(expectedRol, token)) {
 					return true;
-				} else {
-					return false;
 				}
-			} else {
-				return false
 			}
 		}
+		this.router.navigate(['/login']);
+		return false;
 	}
 
 	validTokenExp(token: string): boolean {
 		const exp: number = this.getTokenInfo(token).exp;
+		return true;
 		return Date.now() < exp * 1000
 	}
 
 	validRol(expectedRol: string[], token: string) {
-		const rol: string = this.getTokenInfo(token).roles[0];
-		return expectedRol.includes(rol);
+		const role: string = this.getTokenInfo(token).roles[0];
+		console.log(this.getTokenInfo(token));
+		console.log('expected', expectedRol);
+		console.log('rol', role);
+		localStorage.setItem('role', role);
+		return expectedRol.includes(role);
 	}
 
 	private getTokenInfo(token: string) {

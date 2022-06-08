@@ -1,0 +1,18 @@
+<div class="container mt-5">
+    <h1><i class="bi bi-boxes"></i> Servi Express</h1>
+    <hr>
+    <div class="row">
+        <div class="d-grid gap-2 col-6 mb-2" *ngIf="role == 'ROLE_USER'">
+            <button type="button" routerLink="/agenda/crear" class="btn btn-outline-primary btn-lg"><i class="bi bi-calendar-plus"></i><br> Agendar</button>
+        </div>
+        <div class="d-grid gap-2 col-6 mb-2" *ngIf="role == 'ROLE_ADMIN'">
+            <button type="button" routerLink="/agenda/listar" class="btn btn-outline-primary btn-lg"><i class="bi bi-calendar2-week"></i><br> Agendas</button>
+        </div>
+        <div class="d-grid gap-2 col-6 mb-2" *ngIf="role == 'ROLE_ADMIN'">
+            <button type="button" routerLink="/usuarios" class="btn btn-outline-primary btn-lg"><i class="bi bi-people-fill"></i><br> Usuarios</button>
+        </div>
+        <div class="d-grid gap-2 col-6 mb-2" *ngIf="role == 'ROLE_ADMIN'">
+            <button type="button" routerLink="/registro" class="btn btn-outline-primary btn-lg"><i class="bi bi-person-plus-fill"></i><br> Registrar</button>
+        </div>
+    </div>
+</div>
