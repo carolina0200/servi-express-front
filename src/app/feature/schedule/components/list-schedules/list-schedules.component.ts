@@ -25,7 +25,7 @@ export class ListSchedulesComponent implements OnInit {
   constructor(private scheduleService: ScheduleService) { }
 
   async ngOnInit() {
-    //this.schedules = await firstValueFrom(this.scheduleService.getList());
+    this.schedules = await firstValueFrom(this.scheduleService.getList());
   }
 
   delete(id: any) {

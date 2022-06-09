@@ -6,7 +6,8 @@ import { CreateScheduleComponent } from './components/create-schedule/create-sch
 import { ListSchedulesComponent } from './components/list-schedules/list-schedules.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScheduleService } from './services/schedule.service';
-import { InterceptorProvider } from 'src/app/core/interceptors/jwt.interceptor';
+import { InterceptorProvider, JwtInterceptor } from 'src/app/core/interceptors/jwt.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { InterceptorProvider } from 'src/app/core/interceptors/jwt.interceptor';
   ],
   providers: [
     ScheduleService,
-    InterceptorProvider
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ]
 })
 export class ScheduleModule { }

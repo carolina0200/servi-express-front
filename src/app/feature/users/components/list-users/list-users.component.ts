@@ -15,7 +15,7 @@ export class ListUsersComponent implements OnInit {
   constructor(private service: UserService) { }
 
   async ngOnInit() {
-    await firstValueFrom(this.service.getUserList());
+    this.users = await firstValueFrom(this.service.getUserList());
   }
 
 }

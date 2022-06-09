@@ -15,6 +15,8 @@ export class CreateScheduleComponent implements OnInit {
 
   scheduleForm: FormGroup;
 
+  code: string = '';
+
   minDate = '';
 
   timeList = [
@@ -54,6 +56,7 @@ export class CreateScheduleComponent implements OnInit {
     { value:'17:15', label:'05:15PM' },
     { value:'17:30', label:'05:30PM' },
     { value:'17:45', label:'05:45PM' },
+    { value:'20:50', label:'20:37PM' },
   ];
 
   constructor(private scheduleService: ScheduleService, private formBuilder: FormBuilder) {
@@ -67,6 +70,7 @@ export class CreateScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.minDate = new Date().toISOString().split("T")[0];
+    console.log(this.minDate);
   }
 
   async create() {
@@ -75,11 +79,15 @@ export class CreateScheduleComponent implements OnInit {
         this.scheduleForm.value.type,
         this.scheduleForm.value.description,
         this.scheduleForm.value.date+'T'+this.scheduleForm.value.time+':00.000000000',
-        localStorage.getItem('user') || '', 1
+        localStorage.getItem('user') || '', 4
       )
       console.log(schedule);
       
       const response = await firstValueFrom(this.scheduleService.create(schedule));
+      this.scheduleForm.reset();
+      console.log('Agendamiento',response);
+      this.code = response.code || '';
+
     } else {
       Alerts.warning('Faltan datos', 'Por favor llena toda la información requerida', 'Ok')
     }

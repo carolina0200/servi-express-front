@@ -20,7 +20,7 @@ export class SignupComponent {
       firstName: [undefined, [Validators.required]],
       lastName: [undefined, [Validators.required]],
       password: [undefined, [Validators.required]],
-      idRole: [1, [Validators.required]]
+      idRole: [2, [Validators.required]]
     });
 
     this.role = localStorage.getItem('role');

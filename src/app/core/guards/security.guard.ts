@@ -28,7 +28,7 @@ export class SecurityGuard implements CanActivate {
 
 	validTokenExp(token: string): boolean {
 		const exp: number = this.getTokenInfo(token).exp;
-		return true;
+		//return true;
 		return Date.now() < exp * 1000
 	}
 

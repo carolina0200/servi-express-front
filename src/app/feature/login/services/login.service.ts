@@ -23,7 +23,7 @@ export class LoginService {
     Loading.state.next(true);
     return this.http.post<any>(`${environment.apiUrl}login`, params.toString(), {headers: httpHeaders})
     .pipe(
-      tap(response => this.saveToken(response.accessToken)),
+      tap(response => this.saveToken(response.access_token)),
       catchError(err => {
         console.log(err);
         Loading.state.next(false);
@@ -34,6 +34,7 @@ export class LoginService {
   }
 
   private getUser(token: string): string {
+    console.log('TOKEN', token);
     return JSON.parse(atob(token.split('.')[1])).sub;
   }
 
