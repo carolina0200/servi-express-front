@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { Alerts } from 'src/app/core/alerts/alerts';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -23,6 +24,8 @@ export class LoginComponent {
   async login() {
     if(this.loginForm.valid) {
       await firstValueFrom(this.service.login(this.loginForm.value.user, this.loginForm.value.password));
+    } else {
+      Alerts.warning('Faltan datos', 'Por favor ingresa usuario y contraseña')
     }
   }
 }

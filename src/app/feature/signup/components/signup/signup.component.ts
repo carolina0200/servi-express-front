@@ -32,7 +32,11 @@ export class SignupComponent {
       const user: User = {...this.signupForm.value};
       await firstValueFrom(this.service.signUp(user));
       Alerts.success('Registrado correctamente');
-      this.router.navigateByUrl('/login');
+      if(this.role == 'ROLE_ADMIN') {
+        this.signupForm.reset();
+      } else {        
+        this.router.navigateByUrl('/login');
+      }
     } else {
       Alerts.warning('Faltan datos', 'Por favor llena toda la información requerida', 'Ok')
     }

@@ -34,9 +34,6 @@ export class UserService {
   }
 
   public getUserList(): Observable<User[]> {
-    Loading.state.next(true);
-    return this.http.get<User[]>(this.baseUrl).pipe(
-      tap(() => Loading.state.next(false))
-    );
+    return this.http.get<User[]>(this.baseUrl);
   }
 }

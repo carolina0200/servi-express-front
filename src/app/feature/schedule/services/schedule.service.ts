@@ -41,9 +41,6 @@ export class ScheduleService {
   }
 
   public getList(): Observable<Schedule[]> {
-    Loading.state.next(true);
-    return this.http.get<Schedule[]>(this.baseUrl).pipe(
-      tap(() => Loading.state.next(false))
-    );
+    return this.http.get<Schedule[]>(this.baseUrl);
   }
 }
