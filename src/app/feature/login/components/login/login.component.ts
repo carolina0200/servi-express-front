@@ -13,6 +13,7 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(private service: LoginService, private formBuilder: FormBuilder) {
+    localStorage.setItem('token', '');
     this.loginForm = this.formBuilder.group({
       user: [undefined, [Validators.required]],
       password: [undefined, [Validators.required]]
