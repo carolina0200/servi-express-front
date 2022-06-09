@@ -26,9 +26,9 @@ export class UserService {
     );
   }
 
-  public delete(id: number): Observable<any> {
+  public delete(id: number): Observable<string> {
     Loading.state.next(true);
-    return this.http.delete<any>(`${this.baseUrl}/${id}`).pipe(
+    return this.http.delete<string>(`${this.baseUrl}/${id}`).pipe(
       tap(() => Loading.state.next(false))
     );
   }

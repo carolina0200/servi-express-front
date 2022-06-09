@@ -16,13 +16,11 @@ export class GlobalErrorHandler implements ErrorHandler {
     this.zone.run(() => 
       {
         Loading.state.next(false);
-        console.error('Error', error.rejection.error)
-        if (error.rejection.error && error.rejection.error.responseMessages) {
+        console.error('Error', error.rejection?.error || error)
+        if (error.rejection?.error && error.rejection.error?.responseMessages) {
           Alerts.error('', error.rejection.error.responseMessages[0]);
-        } else if (error.rejection.error && error.rejection.error.message) {
+        } else if (error.rejection?.error && error.rejection.error?.message) {
           Alerts.error('', error.rejection.error.message);
-        } else {
-          Alerts.error('Error de inesperado', 'Por favor intenta de nuevo');
         }
       }
     );

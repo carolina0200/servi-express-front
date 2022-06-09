@@ -43,13 +43,9 @@ export class UserDetailComponent implements OnInit {
     Alerts.confirmation('¿Seguro?', '¿Seguro desea eliminar el usuario?', 'Sí', 'No')
       .then(async (result) => {
         if (result.isConfirmed) {
-          try {
-            if(this.user.id) {
-              await firstValueFrom(this.service.delete(this.user.id));
-            }
+          if(this.user.id) {
+            await firstValueFrom(this.service.delete(this.user.id));
             Alerts.successTime('Usuario eliminado');
-          } catch (error) {
-            Alerts.errorTime('Error eliminando, intente de nuevo');
           }
         }
       })
