@@ -12,7 +12,7 @@ export class Alerts {
             icon: 'success',
             title,
             showConfirmButton: false,
-            timer: 1500
+            timer: 500
           });
 	}
 
@@ -22,7 +22,7 @@ export class Alerts {
             icon: 'error',
             title,
             showConfirmButton: false,
-            timer: 1500
+            timer: 500
           });
 	}
 

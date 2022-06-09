@@ -28,15 +28,11 @@ export class SecurityGuard implements CanActivate {
 
 	validTokenExp(token: string): boolean {
 		const exp: number = this.getTokenInfo(token).exp;
-		//return true;
 		return Date.now() < exp * 1000
 	}
 
 	validRol(expectedRol: string[], token: string) {
 		const role: string = this.getTokenInfo(token).roles[0];
-		console.log(this.getTokenInfo(token));
-		console.log('expected', expectedRol);
-		console.log('rol', role);
 		localStorage.setItem('role', role);
 		return expectedRol.includes(role);
 	}

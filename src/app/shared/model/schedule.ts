@@ -3,16 +3,18 @@ export class Schedule {
 	type: string;
 	description: string;
 	date: string;
-	user: string;
+	username: string;
 	warehouse: number;
+	addressee: string;
 	code?: string;
 
-	constructor(type: string, description: string, date: string, user: string, warehouse: number) {
+	constructor(type: string, description: string, date: string, user: string, addressee: string, warehouse: number) {
 		this.id = 0;
 		this.type = type;
 		this.description = description;
 		this.date = date;
-		this.user = user;
+		this.username = user;
+		this.addressee = addressee;
 		this.warehouse = warehouse;
 		this.code = '';
 	}

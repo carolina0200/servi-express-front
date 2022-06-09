@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
+import { Alerts } from '../alerts/alerts';
 import { Loading } from '../loading/loading';
 
 @Injectable()
@@ -11,9 +12,20 @@ export class GlobalErrorHandler implements ErrorHandler {
   ) {}
 
   handleError(error: any) {
-
-    console.error('Error from global error handler', error);
-
     Loading.state.next(false);
+    this.zone.run(() => 
+      {
+        Loading.state.next(false);
+        console.error('Error', error.rejection.error)
+        if (error.rejection.error && error.rejection.error.responseMessages) {
+          Alerts.error('', error.rejection.error.responseMessages[0]);
+        } else if (error.rejection.error && error.rejection.error.message) {
+          Alerts.error('', error.rejection.error.message);
+        } else {
+          Alerts.error('Error de inesperado', 'Por favor intenta de nuevo');
+        }
+      }
+    );
+
   }
 }

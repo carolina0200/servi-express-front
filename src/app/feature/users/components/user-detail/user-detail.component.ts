@@ -33,7 +33,6 @@ export class UserDetailComponent implements OnInit {
 
   async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log('ID', id)
     if(id) {
       this.user = await firstValueFrom(this.service.detail(Number.parseInt(id)));
       this.detailForm.patchValue(this.user);

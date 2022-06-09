@@ -16,8 +16,9 @@ export class ListSchedulesComponent implements OnInit {
       "type":"recogida",
       "description":"entrega 1",
       "date":"2022-04-07T18:32:50.558095800",
-      "user":"Carolina",
+      "username":"Carolina",
       "warehouse":1,
+      addressee: '',
       "id":1
     }
   ];

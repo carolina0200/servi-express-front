@@ -17,7 +17,7 @@
             <th scope="row">{{schedule.type}}</th>
             <td>{{schedule.description}}</td>
             <td>{{schedule.date | date:'medium'}}</td>
-            <td>{{schedule.user}}</td>
+            <td>{{schedule.username}}</td>
             <td>Bodega {{schedule.warehouse}}</td>
             <td (click)="delete(schedule.id)"><i style="color: red;" class="bi bi-trash-fill"></i></td>
           </tr>

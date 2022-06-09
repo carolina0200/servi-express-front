@@ -19,6 +19,8 @@ export class CreateScheduleComponent implements OnInit {
 
   minDate = '';
 
+  actualTime = this.getDatePlusFiveMin().getHours() + ':' + this.getDatePlusFiveMin().getMinutes();
+
   timeList = [
     { value:'09:00', label:'9:00AM' },
     { value:'09:15', label:'9:15AM' },
@@ -56,7 +58,7 @@ export class CreateScheduleComponent implements OnInit {
     { value:'17:15', label:'05:15PM' },
     { value:'17:30', label:'05:30PM' },
     { value:'17:45', label:'05:45PM' },
-    { value:'20:50', label:'20:37PM' },
+    { value: this.actualTime, label:this.actualTime },
   ];
 
   constructor(private scheduleService: ScheduleService, private formBuilder: FormBuilder) {
@@ -64,30 +66,34 @@ export class CreateScheduleComponent implements OnInit {
       type: [undefined, [Validators.required]],
       description: [undefined, [Validators.required]],
       date: [undefined, [Validators.required]],
-      time: [undefined, [Validators.required]]
+      time: [this.actualTime, [Validators.required]],
+      addressee: [undefined, Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.minDate = new Date().toISOString().split("T")[0];
-    console.log(this.minDate);
+    this.minDate = new Date().toLocaleDateString().split('/').reverse().join('-0');
   }
 
   async create() {
+    if(this.scheduleForm.value.type == 'recogida') {
+      this.scheduleForm.get('addressee')?.setValue(localStorage.getItem('user'));
+      this.scheduleForm.updateValueAndValidity();
+    }
     if(this.scheduleForm.valid) {
       const schedule = new Schedule(
         this.scheduleForm.value.type,
         this.scheduleForm.value.description,
         this.scheduleForm.value.date+'T'+this.scheduleForm.value.time+':00.000000000',
-        localStorage.getItem('user') || '', 4
+        localStorage.getItem('user') || '',
+        this.scheduleForm.value.addressee, 1
       )
-      console.log(schedule);
-      
       const response = await firstValueFrom(this.scheduleService.create(schedule));
-      this.scheduleForm.reset();
-      console.log('Agendamiento',response);
-      this.code = response.code || '';
-
+      if(response.code) {
+        this.scheduleForm.reset();
+        console.log('Agendamiento',response);
+        this.code = response.code || '';
+      }
     } else {
       Alerts.warning('Faltan datos', 'Por favor llena toda la información requerida', 'Ok')
     }
@@ -95,10 +101,15 @@ export class CreateScheduleComponent implements OnInit {
 
   showTime(time: string) {
     if(Number.parseInt(this.minDate.split("-")[2]) == Number.parseInt(this.scheduleForm.value.date?.split("-")[2])) {
-      const hour = Number.parseInt(time.split(':')[0])
-      return hour > new Date().getHours();
+      const hour = Number.parseInt(time.split(':')[0]);
+      const min = Number.parseInt(time.split(':')[1]);
+      return hour >= new Date().getHours() && min > new Date().getMinutes();
     }
     return true;
+  }
+
+  getDatePlusFiveMin() {
+    return new Date(new Date().getTime() + 5*60000);
   }
 
 }

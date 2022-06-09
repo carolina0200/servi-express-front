@@ -34,7 +34,6 @@ export class LoginService {
   }
 
   private getUser(token: string): string {
-    console.log('TOKEN', token);
     return JSON.parse(atob(token.split('.')[1])).sub;
   }
 
